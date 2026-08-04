@@ -1,17 +1,193 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import { smoothOperatorAssetStoreUrl } from '../data/site';
+import { withBase } from '../lib/site';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Smooth Tools"
+  description="Small, focused Unity tools designed to remove friction from everyday development."
+  path="/"
+>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Smooth Tools</p>
+        <h1>Unity tools that get out of your way.</h1>
+        <p>
+          Small, focused tools designed to remove friction from everyday Unity development.
+          Clear workflows, practical utility, and no extra ceremony.
+        </p>
+        <div class="button-row">
+          <a class="button" href={withBase('/products/background-build')}>View Tools</a>
+          <a class="button-quiet" href={withBase('/support')}>Support</a>
+        </div>
+        <div class="metric-row section-tight">
+          <div class="metric">
+            <strong>Background Build</strong>
+            Build in a separate Unity process and keep editing.
+          </div>
+          <div class="metric">
+            <strong>Smooth Operator</strong>
+            Use modern C# null syntax safely with Unity objects.
+          </div>
+        </div>
+      </div>
+
+      <div class="mock-window">
+        <div class="window-top">
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <small>Background Build</small>
+        </div>
+        <div class="window-body build-layout">
+          <div class="progress-stack">
+            <div class="progress-item">
+              <strong>Android player</strong>
+              <div class="progress-bar"><span style="width: 78%"></span></div>
+              <small>Streaming logs and progress while the editor stays responsive.</small>
+            </div>
+            <div class="progress-item">
+              <strong>Addressables content</strong>
+              <div class="progress-bar"><span style="width: 41%"></span></div>
+              <small>Separate process, tracked completion time, cancel when needed.</small>
+            </div>
+          </div>
+          <div class="status-stack">
+            <div class="status-item">
+              <strong>Main Editor</strong>
+              <p>Scene editing, prefab work, and iteration continue while the build runs.</p>
+            </div>
+            <div class="status-item">
+              <strong>Build Output</strong>
+              <p>Completed builds surface errors, logs, and output links when finished.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split-grid">
+      <div class="section-copy">
+        <p class="eyebrow">Featured Product</p>
+        <h2>Build your game. Keep using Unity.</h2>
+        <p>
+          Background Build runs builds in a separate Unity process so the main Editor does not
+          lock up while a player build, AssetBundle build, or Addressables build is in progress.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Build window integration</span>
+          <span class="pill">Progress UI and ETA</span>
+          <span class="pill">Optional live logs</span>
+          <span class="pill">Player builds, AssetBundles, Addressables</span>
+        </div>
+        <div class="button-row">
+          <a class="button" href={withBase('/products/background-build')}>See Background Build</a>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card">
+          <p class="eyebrow">Normal Unity</p>
+          <h3>Build starts. Work stops.</h3>
+          <ul>
+            <li>Make a change</li>
+            <li>Start a build</li>
+            <li>Wait for the Editor to free up</li>
+            <li>Continue working later</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <p class="eyebrow">Background Build</p>
+          <h3>Build runs. Work continues.</h3>
+          <ul>
+            <li>Make a change</li>
+            <li>Start a background build</li>
+            <li>Keep editing in the main Editor</li>
+            <li>Review logs and output when it completes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split-grid">
+      <div class="section-copy">
+        <p class="eyebrow">Also Available</p>
+        <h2>Modern null syntax, without Unity surprises.</h2>
+        <p>
+          Smooth Operator makes the null conditional operator and null coalescing operator usable
+          with Unity objects, where Unity’s custom null behavior normally gets in the way.
+        </p>
+        <div class="button-row">
+          <a class="button" href={withBase('/products/smoothoperator')}>See Smooth Operator</a>
+          <a class="button-quiet" href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">
+            Asset Store
+          </a>
+        </div>
+      </div>
+
+      <div class="image-frame">
+        <img
+          src={withBase('images/smooth-operator-before.png')}
+          alt='Smooth Operator source screenshot showing repeated "if" null checks in Unity code'
+        />
+        <div class="caption">Real screenshot from the existing Smooth Operator product page.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">How Smooth Tools Works</p>
+        <h2>Focused tools for common points of friction.</h2>
+        <p>
+          Smooth Tools does not try to replace your pipeline. The products are aimed at a narrower
+          goal: remove a frustrating limitation, fit into existing Unity workflows, and stay easy to adopt.
+        </p>
+      </div>
+      <div class="feature-grid">
+        <FeatureCard
+          title="Unity-native workflow"
+          body="The tools are built to feel like an extension of the editor you are already using, not a separate platform."
+        />
+        <FeatureCard
+          title="Practical technical depth"
+          body="Each product exists to solve a concrete engine or workflow issue, with technical behavior explained clearly."
+        />
+        <FeatureCard
+          title="Low maintenance footprint"
+          body="Small surface area, focused feature sets, and straightforward integration make the tools easier to keep around."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell product-grid">
+      <ProductCard
+        eyebrow="Primary"
+        title="Background Build"
+        description="Run Unity builds in the background, keep the editor responsive, and review logs, errors, and output when the build completes."
+        href={withBase('/products/background-build')}
+      />
+      <ProductCard
+        title="Smooth Operator"
+        description="Use `?.` and `??` safely with Unity objects, with technical detail around Unity’s custom null semantics and destroyed objects."
+        href={withBase('/products/smoothoperator')}
+      />
+      <ProductCard
+        title="Support"
+        description="Simple support expectations, what to include in a request, and product-specific context that speeds up debugging."
+        href={withBase('/support')}
+      />
+    </div>
+  </section>
+</BaseLayout>

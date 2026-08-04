@@ -1,0 +1,49 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import { toCanonical, withBase } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+}
+
+const { title, description, path, ogImage = withBase('images/smooth-tools-icon.png') } = Astro.props;
+const canonical = toCanonical(path);
+const pageTitle = title === 'Smooth Tools' ? title : `${title} | Smooth Tools`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="icon" href={withBase('favicon.ico')} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Smooth Tools" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <Header currentPath={Astro.url.pathname} />
+    <main id="content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

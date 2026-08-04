@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { smoothOperatorAssetStoreUrl } from '../data/site';
+---
+
+<BaseLayout
+  title="Support"
+  description="Support expectations and the technical details to include when reaching out about Smooth Tools products."
+  path="/support"
+>
+  <section class="hero">
+    <div class="shell hero-copy">
+      <p class="eyebrow">Support</p>
+      <h1>Keep the support request short. Keep the technical context complete.</h1>
+      <p>
+        The fastest way to get a useful answer is to include the product, Unity version, target
+        platform, and any error or log details up front.
+      </p>
+      <div class="button-row">
+        <a class="button" href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">
+          Smooth Operator Asset Store
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell support-grid">
+      <article class="support-card">
+        <h2>How to contact Smooth Tools</h2>
+        <p>
+          The current source site does not publish a support email address. For now, use the support
+          or contact path provided on the relevant Unity Asset Store listing, and include the details below.
+        </p>
+      </article>
+      <article class="support-card">
+        <h2>Include this every time</h2>
+        <ul>
+          <li>Product name</li>
+          <li>Unity version</li>
+          <li>Platform or build target</li>
+          <li>Clear reproduction steps</li>
+          <li>Relevant error text or log output</li>
+        </ul>
+      </article>
+      <article class="support-card">
+        <h2>Purchase details</h2>
+        <p>
+          If the request is related to installation, updates, or account access, include the Asset Store
+          invoice or order information with the message.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell support-grid">
+      <article class="support-card">
+        <h2>Background Build requests</h2>
+        <ul>
+          <li>Which build type failed: player build, AssetBundles, or Addressables</li>
+          <li>Whether live log streaming was enabled</li>
+          <li>Whether the build was cancelled or completed</li>
+          <li>Any output-folder or build-log path details that help isolate the issue</li>
+        </ul>
+      </article>
+      <article class="support-card">
+        <h2>Smooth Operator requests</h2>
+        <ul>
+          <li>The exact operator usage that failed, such as `?.` or `??`</li>
+          <li>The Unity object type involved</li>
+          <li>Whether the object had already been destroyed</li>
+          <li>A minimal code sample if the issue is reproducible</li>
+        </ul>
+      </article>
+      <article class="support-card">
+        <h2>What helps most</h2>
+        <p>
+          Paste the actual error text. Screenshots can help, but the raw message, log excerpt, and
+          steps to reproduce are usually more useful.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  title?: string;
+  label?: string;
+  code: string;
+}
+
+const { title, label = 'C#', code } = Astro.props;
+---
+
+<div class="code-block">
+  <div class="code-block-header">
+    <span>{title}</span>
+    <small>{label}</small>
+  </div>
+  <pre><code>{code}</code></pre>
+</div>

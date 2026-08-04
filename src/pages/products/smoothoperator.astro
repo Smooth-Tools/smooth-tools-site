@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CodeExample from '../../components/CodeExample.astro';
+import { smoothOperatorAssetStoreUrl, smoothOperatorVideoUrl } from '../../data/site';
+import { withBase } from '../../lib/site';
+
+const beforeCode = `if (rigidbody != null)
+{
+    rigidbody.AddForce(force);
+}
+
+var targetName = target != null ? target.name : "None";`;
+
+const afterCode = `rigidbody?.AddForce(force);
+
+var targetName = target?.name ?? "None";`;
+---
+
+<BaseLayout
+  title="Smooth Operator"
+  description="Use the null conditional and null coalescing operators safely with Unity objects."
+  path="/products/smoothoperator"
+  ogImage={withBase('images/smooth-operator-after.png')}
+>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Smooth Operator</p>
+        <h1>Use modern C# null syntax safely with Unity objects.</h1>
+        <p>
+          Smooth Operator is a Unity extension focused on one problem: Unity objects do not behave
+          like normal CLR references around `?.` and `??`. This tool makes those operators usable
+          without the missing-reference surprises that normally come with Unity’s custom null model.
+        </p>
+        <div class="button-row">
+          <a class="button" href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">
+            View on Unity Asset Store
+          </a>
+          <a class="button-quiet" href="#how-it-works">How it works</a>
+        </div>
+      </div>
+
+      <div class="video-frame">
+        <iframe
+          src={smoothOperatorVideoUrl}
+          title="Smooth Operator video"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell workflow-grid">
+      <div class="section-copy">
+        <p class="eyebrow">The Problem</p>
+        <h2>Unity null is not normal C# null.</h2>
+        <p>
+          Unity uses a custom equality implementation on `UnityEngine.Object` to detect destroyed native-side
+          objects. The null conditional operator and null coalescing operator cannot use that custom behavior,
+          because those operators are not overloadable in C#.
+        </p>
+        <p>
+          That means code that looks like ordinary C# can still behave incorrectly with Unity objects after the
+          native object has been destroyed. Smooth Operator exists to close that gap.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>Why `?.` and `??` are risky in Unity by default</h3>
+        <p>
+          Unity can make a destroyed object compare equal to null through its overloaded equality rules, but `?.`
+          and `??` still use regular reference null checks. That mismatch is the core issue Smooth Operator addresses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">Before / After</p>
+        <h2>Cleaner syntax, same intent.</h2>
+      </div>
+      <div class="compare-grid">
+        <CodeExample title="Typical defensive Unity code" code={beforeCode} />
+        <CodeExample title="Modern syntax with Smooth Operator" code={afterCode} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell compare-grid">
+      <figure class="image-frame">
+        <img
+          src={withBase('images/smooth-operator-before.png')}
+          alt='Smooth Operator screenshot showing standard Unity code with many "if" statements to check for null'
+        />
+        <figcaption class="caption">Existing product screenshot: standard Unity null-check-heavy code.</figcaption>
+      </figure>
+      <figure class="image-frame">
+        <img
+          src={withBase('images/smooth-operator-after.png')}
+          alt="Smooth Operator screenshot showing optimized code using the null conditional operator"
+        />
+        <figcaption class="caption">Existing product screenshot: simplified code using null operators.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="shell workflow-grid">
+      <div class="section-copy">
+        <p class="eyebrow">How It Works</p>
+        <h2>Keep the syntax. Restore the expected behavior.</h2>
+        <p>
+          The source material describes Smooth Operator as transforming the relevant code paths so
+          Unity’s overloaded null check is used instead of a plain reference null check. The result
+          is that `?.` and `??` behave the way Unity developers expect when destroyed objects are involved.
+        </p>
+      </div>
+      <div class="workflow-steps">
+        <div class="step">
+          <strong>No extra configuration flow is required.</strong>
+          <span>Import the package from the Unity Asset Store and let the extension handle the integration.</span>
+        </div>
+        <div class="step">
+          <strong>It is built for standard Unity scripts.</strong>
+          <span>The tool is meant to make modern C# syntax usable in normal Unity code without special-case habits.</span>
+        </div>
+        <div class="step">
+          <strong>All platforms are supported.</strong>
+          <span>The existing product page states support across platforms, including build pipelines.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">FAQ</p>
+        <h2>Direct answers.</h2>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card">
+          <h3>Why do the null operators fail without this?</h3>
+          <p>
+            Unity has a custom `==` implementation that checks whether the native-side object has been destroyed.
+            The `?.` and `??` operators cannot be overridden, so they cannot participate in that custom behavior.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Does it add meaningful performance overhead?</h3>
+          <p>
+            The existing product page describes the overhead as negligible and frames the resulting behavior as
+            equivalent to using Unity’s regular overloaded null check in an `if` statement.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Is this only for GameObjects?</h3>
+          <p>
+            The existing page describes the problem in terms of Unity GameObjects, but the underlying issue is Unity’s
+            object null semantics more broadly. The key point is safe null-operator use with Unity objects.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Do build pipelines still work?</h3>
+          <p>Yes. The source material explicitly states that build pipelines are supported.</p>
+        </article>
+        <article class="faq-card">
+          <h3>What is the scope of setup?</h3>
+          <p>
+            The existing page says there is no extra configuration needed after import. The package is intended to
+            handle the integration on its own.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>What if I just avoid `?.` and `??`?</h3>
+          <p>
+            You can, but the whole point of the tool is to stop writing around the engine limitation when modern C#
+            syntax would otherwise be clearer and less repetitive.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell cta-panel cta-box">
+      <div>
+        <p class="eyebrow">Get Smooth Operator</p>
+        <h2>Use cleaner null syntax without giving up Unity-safe behavior.</h2>
+        <p>Available on the Unity Asset Store.</p>
+      </div>
+      <div class="button-row">
+        <a class="button" href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">
+          Open Asset Store
+        </a>
+        <a class="button-quiet" href={withBase('/support')}>Support</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

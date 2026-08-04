@@ -1,0 +1,56 @@
+---
+import { navLinks, smoothOperatorAssetStoreUrl } from '../data/site';
+import { withBase } from '../lib/site';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const normalizedPath = currentPath.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+
+const isActive = (href: string) => normalizedPath === href;
+---
+
+<header class="site-header">
+  <div class="shell header-shell">
+    <a class="brand" href={withBase()}>
+      <img src={withBase('images/smooth-tools-icon.png')} alt="Smooth Tools" width="40" height="40" />
+      <span>
+        <strong>Smooth Tools</strong>
+        <small>Unity tools that get out of your way.</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <div class="nav-group">
+        {navLinks.map((link) => (
+          <a class:list={['nav-link', { active: isActive(link.href) }]} href={withBase(link.href)}>
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <a class="button button-quiet" href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">
+        Unity Asset Store
+      </a>
+    </nav>
+
+    <details class="mobile-nav">
+      <summary aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </summary>
+      <nav class="mobile-panel" aria-label="Mobile">
+        {navLinks.map((link) => (
+          <a class:list={['mobile-link', { active: isActive(link.href) }]} href={withBase(link.href)}>
+            {link.label}
+          </a>
+        ))}
+        <a class="button" href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">
+          Unity Asset Store
+        </a>
+      </nav>
+    </details>
+  </div>
+</header>

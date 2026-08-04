@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import CodeExample from '../../components/CodeExample.astro';
+import { withBase } from '../../lib/site';
+
+const conceptualWrapperCode = `// Existing foreground build path
+var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
+
+// Conceptual approach with Background Build:
+// keep build calls behind your own build service so the
+// implementation can be swapped from foreground to background.
+IBuildRunner runner = GetBuildRunner();
+var report = runner.Build(buildPlayerOptions);`;
+---
+
+<BaseLayout
+  title="Background Build"
+  description="Run Unity builds in a separate process so the main editor stays usable while builds are running."
+  path="/products/background-build"
+>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Background Build</p>
+        <h1>Build your game. Keep using Unity.</h1>
+        <p>
+          Background Build launches builds in a separate Unity process, keeping the main Editor responsive
+          while the build runs. The value is immediate: start a build, keep editing, and come back when output,
+          logs, and errors are ready.
+        </p>
+        <div class="button-row">
+          <a class="button" href={withBase('/support')}>Ask about Background Build</a>
+          <a class="button-quiet" href="#workflow">See the workflow</a>
+        </div>
+        <div class="pill-row section-tight">
+          <span class="pill">Player builds</span>
+          <span class="pill">AssetBundles</span>
+          <span class="pill">Addressables</span>
+          <span class="pill">Cancelable builds</span>
+        </div>
+      </div>
+
+      <div class="mock-window">
+        <div class="window-top">
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <small>Build Progress</small>
+        </div>
+        <div class="window-body build-layout">
+          <div class="progress-stack">
+            <div class="progress-item">
+              <strong>Windows standalone</strong>
+              <div class="progress-bar"><span style="width: 83%"></span></div>
+              <small>ETA based on previous build duration.</small>
+            </div>
+            <div class="progress-item">
+              <strong>AssetBundles</strong>
+              <div class="progress-bar"><span style="width: 52%"></span></div>
+              <small>Optional live console log streaming.</small>
+            </div>
+            <div class="progress-item">
+              <strong>Android player</strong>
+              <div class="progress-bar"><span style="width: 26%"></span></div>
+              <small>One background build per target at a time.</small>
+            </div>
+          </div>
+          <div class="status-stack">
+            <div class="status-item">
+              <strong>Main Editor</strong>
+              <p>Continue iterating on scenes, assets, and scripts while the build happens elsewhere.</p>
+            </div>
+            <div class="status-item">
+              <strong>Completion</strong>
+              <p>Errors surface when the build ends, with links to the log and the output folder.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">Why It Matters</p>
+        <h2>Normal Unity builds interrupt iteration.</h2>
+        <p>
+          In a standard setup, starting a build can lock up the editor until the process finishes.
+          Background Build shifts the build into a separate Unity process so your main editor session
+          can stay usable.
+        </p>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <p class="eyebrow">Normal Build Flow</p>
+          <h3>Make change -> Start build -> Wait -> Continue later</h3>
+          <ul>
+            <li>Build ties up the editor</li>
+            <li>Context switching slows iteration</li>
+            <li>Logs and output arrive only when the editor is free again</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <p class="eyebrow">Background Build Flow</p>
+          <h3>Make change -> Start background build -> Keep working</h3>
+          <ul>
+            <li>Separate process handles build execution</li>
+            <li>Main editor remains available for development work</li>
+            <li>Progress, logs, completion state, and output stay visible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">Feature Set</p>
+        <h2>Built for day-to-day build friction.</h2>
+      </div>
+      <div class="feature-grid">
+        <FeatureCard title="Build window integration" body="Works from the Unity Build window, so the workflow stays familiar instead of introducing a separate tool surface." />
+        <FeatureCard title="Code API support" body="Designed to be easy to substitute for existing `BuildPipeline.BuildPlayer` usage through your own build wrapper or service layer." />
+        <FeatureCard title="Progress and ETA" body="Integrated progress UI includes estimated completion time using previous build duration as a reference." />
+        <FeatureCard title="Logs and errors" body="Optional live console log streaming is available during the build, and errors surface clearly when the build completes." />
+        <FeatureCard title="Output shortcuts" body="Build completion includes clickable links to the output folder and the build log for faster handoff and debugging." />
+        <FeatureCard title="Cancellation and limits" body="Builds can be cancelled, and only one background build per target or platform runs at a time." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="workflow">
+    <div class="shell workflow-grid">
+      <div class="section-copy">
+        <p class="eyebrow">Workflow</p>
+        <h2>Separate process, visible progress, cleaner handoff.</h2>
+      </div>
+      <div class="workflow-steps">
+        <div class="step">
+          <strong>1. Start a build from the usual place.</strong>
+          <span>Kick off a build from the Unity Build window or an existing scripted build path.</span>
+        </div>
+        <div class="step">
+          <strong>2. Background Build launches the work elsewhere.</strong>
+          <span>The build runs in another Unity process while the main editor remains available.</span>
+        </div>
+        <div class="step">
+          <strong>3. Track progress while you keep working.</strong>
+          <span>Watch progress, ETA, and optional live logs without giving up your active editor session.</span>
+        </div>
+        <div class="step">
+          <strong>4. Review results at completion.</strong>
+          <span>Inspect errors, open the log, and jump directly to the output folder when the build finishes.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell workflow-grid">
+      <div>
+        <p class="eyebrow">API Example</p>
+        <h2>Easy to slot behind an existing build wrapper.</h2>
+        <p>
+          The source material states that the code API is designed to be easy to substitute for
+          `BuildPipeline.BuildPlayer`. The example here stays conceptual on purpose, so it shows
+          the integration pattern without inventing unsupported API names.
+        </p>
+      </div>
+      <div>
+        <CodeExample title="Conceptual integration pattern" code={conceptualWrapperCode} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">Supported Targets</p>
+        <h2>Grounded platform support.</h2>
+      </div>
+      <div class="platform-grid">
+        <div class="platform-item"><strong>iOS</strong><span>Supported</span></div>
+        <div class="platform-item"><strong>Android</strong><span>Supported</span></div>
+        <div class="platform-item"><strong>Windows standalone</strong><span>Supported</span></div>
+        <div class="platform-item"><strong>macOS standalone</strong><span>Supported</span></div>
+        <div class="platform-item"><strong>WebGL</strong><span>Supported</span></div>
+        <div class="platform-item"><strong>Linux standalone</strong><span>Experimental</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-copy">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card">
+          <h3>What kinds of builds does it support?</h3>
+          <p>
+            Player builds are supported directly. AssetBundle builds are supported, and Addressables
+            builds are supported when the Addressables package is installed.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Does it replace the normal Build window?</h3>
+          <p>
+            No. The point is to fit into normal Unity workflows, including the Build window, while
+            moving the build execution into a separate Unity process.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Can I start multiple builds for the same target?</h3>
+          <p>
+            Not for the same target or platform at the same time. One background build per target or
+            platform is allowed at once.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Can I stop a build if I started the wrong one?</h3>
+          <p>Yes. Builds can be cancelled.</p>
+        </article>
+        <article class="faq-card">
+          <h3>What happens when the build finishes with errors?</h3>
+          <p>
+            Errors are surfaced when the build completes, alongside links to the output folder and
+            the build log.
+          </p>
+        </article>
+        <article class="faq-card">
+          <h3>Why is Linux marked differently?</h3>
+          <p>Linux support is present but explicitly described as experimental.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell cta-panel cta-box">
+      <div>
+        <p class="eyebrow">Final Step</p>
+        <h2>Keep the editor free for actual development work.</h2>
+        <p>
+          Background Build is about getting build time out of the way so iteration stays moving.
+        </p>
+      </div>
+      <div class="button-row">
+        <a class="button" href={withBase('/support')}>Contact Support</a>
+        <a class="button-quiet" href={withBase('/')}>Back to Smooth Tools</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
