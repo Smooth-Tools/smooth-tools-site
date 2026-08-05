@@ -1,5 +1,5 @@
 ---
-import { smoothOperatorAssetStoreUrl } from '../data/site';
+import { footerLinks, smoothOperatorAssetStoreUrl } from '../data/site';
 import { withBase } from '../lib/site';
 ---
 
@@ -15,9 +15,9 @@ import { withBase } from '../lib/site';
       </a>
     </div>
     <div class="footer-links">
-      <a href={withBase('/products/background-build')}>Background Build</a>
-      <a href={withBase('/products/smoothoperator')}>Smooth Operator</a>
-      <a href={withBase('/support')}>Support</a>
+      {footerLinks.map((link) => (
+        <a href={withBase(link.href)}>{link.label}</a>
+      ))}
       <a href={smoothOperatorAssetStoreUrl} target="_blank" rel="noreferrer">Asset Store</a>
     </div>
   </div>

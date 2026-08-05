@@ -40,7 +40,7 @@ var targetName = target?.name ?? "None";`;
         </div>
       </div>
 
-      <div class="video-frame">
+      <div class="video-frame video-frame-hero">
         <iframe
           src={smoothOperatorVideoUrl}
           title="Smooth Operator video"
@@ -115,9 +115,9 @@ var targetName = target?.name ?? "None";`;
         <p class="eyebrow">How It Works</p>
         <h2>Keep the syntax. Restore the expected behavior.</h2>
         <p>
-          The source material describes Smooth Operator as transforming the relevant code paths so
-          Unity’s overloaded null check is used instead of a plain reference null check. The result
-          is that `?.` and `??` behave the way Unity developers expect when destroyed objects are involved.
+          Smooth Operator transforms the relevant code paths so Unity’s overloaded null check is used
+          instead of a plain reference null check. The result is that `?.` and `??` behave the way
+          Unity developers expect when destroyed objects are involved.
         </p>
       </div>
       <div class="workflow-steps">
@@ -131,7 +131,7 @@ var targetName = target?.name ?? "None";`;
         </div>
         <div class="step">
           <strong>All platforms are supported.</strong>
-          <span>The existing product page states support across platforms, including build pipelines.</span>
+          <span>Smooth Operator has support across platforms, including build pipelines.</span>
         </div>
       </div>
     </div>
@@ -154,26 +154,27 @@ var targetName = target?.name ?? "None";`;
         <article class="faq-card">
           <h3>Does it add meaningful performance overhead?</h3>
           <p>
-            The existing product page describes the overhead as negligible and frames the resulting behavior as
-            equivalent to using Unity’s regular overloaded null check in an `if` statement.
+            The overhead is negligible, and the resulting behavior is equivalent to using Unity’s
+            regular overloaded null check in an `if` statement.
           </p>
         </article>
         <article class="faq-card">
           <h3>Is this only for GameObjects?</h3>
           <p>
-            The existing page describes the problem in terms of Unity GameObjects, but the underlying issue is Unity’s
-            object null semantics more broadly. The key point is safe null-operator use with Unity objects.
+            The problem is often explained in terms of Unity GameObjects, but the underlying issue is
+            Unity’s object null semantics more broadly. The key point is safe null-operator use with
+            Unity objects.
           </p>
         </article>
         <article class="faq-card">
           <h3>Do build pipelines still work?</h3>
-          <p>Yes. The source material explicitly states that build pipelines are supported.</p>
+          <p>Yes. Build pipelines are supported.</p>
         </article>
         <article class="faq-card">
           <h3>What is the scope of setup?</h3>
           <p>
-            The existing page says there is no extra configuration needed after import. The package is intended to
-            handle the integration on its own.
+            No extra configuration is needed after import. The package is intended to handle the
+            integration on its own.
           </p>
         </article>
         <article class="faq-card">

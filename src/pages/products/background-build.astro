@@ -2,7 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FeatureCard from '../../components/FeatureCard.astro';
 import CodeExample from '../../components/CodeExample.astro';
+import { backgroundBuildEnabled } from '../../data/site';
 import { withBase } from '../../lib/site';
+
+if (!backgroundBuildEnabled) {
+  return Astro.redirect(withBase('/'));
+}
 
 const conceptualWrapperCode = `// Existing foreground build path
 var report = BuildPipeline.BuildPlayer(buildPlayerOptions);

@@ -262,6 +262,7 @@ pre {
 .feature-grid,
 .product-grid,
 .support-grid,
+.support-layout,
 .cta-panel,
 .compare-grid,
 .workflow-grid,
@@ -350,6 +351,7 @@ pre {
 .product-card,
 .feature-card,
 .support-card,
+.support-form-card,
 .faq-card,
 .cta-box {
   padding: 1.5rem;
@@ -498,6 +500,19 @@ pre {
   border-radius: inherit;
 }
 
+.video-frame {
+  overflow: hidden;
+}
+
+.video-frame iframe {
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+
+.video-frame-hero iframe {
+  min-height: clamp(260px, 28vw, 360px);
+}
+
 .image-frame {
   overflow: hidden;
 }
@@ -512,6 +527,60 @@ pre {
   grid-template-columns: 1.3fr 0.7fr;
   align-items: center;
   padding: 1.75rem;
+}
+
+.support-layout {
+  gap: 1.5rem;
+}
+
+.support-form-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(21, 27, 43, 0.95), rgba(11, 15, 24, 0.95));
+  box-shadow: var(--shadow);
+}
+
+.support-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.form-field span {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: var(--muted);
 }
 
 .site-footer {
@@ -550,6 +619,10 @@ pre {
   .compare-grid,
   .cta-panel,
   .build-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
