@@ -488,6 +488,221 @@ pre {
   line-height: 1.65;
 }
 
+.animated-compare {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at top, rgba(88, 198, 255, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(21, 27, 43, 0.96), rgba(11, 15, 24, 0.98));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.animated-compare-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.animated-compare-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.compare-chip,
+.compare-replay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.2rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font: inherit;
+}
+
+.compare-chip {
+  color: var(--muted);
+}
+
+.compare-chip-before {
+  border-color: rgba(255, 203, 107, 0.28);
+}
+
+.compare-chip-after {
+  border-color: rgba(108, 214, 183, 0.28);
+}
+
+.compare-replay {
+  cursor: pointer;
+}
+
+.animated-compare-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  align-items: stretch;
+}
+
+.animated-code-window {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #0b1019;
+}
+
+.animated-code-window-before {
+  box-shadow: inset 0 0 0 1px rgba(255, 203, 107, 0.07);
+}
+
+.animated-code-window-after {
+  box-shadow: inset 0 0 0 1px rgba(108, 214, 183, 0.08);
+}
+
+.animated-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.animated-code-header small {
+  color: var(--muted);
+}
+
+.animated-code-body {
+  display: grid;
+  gap: 0.15rem;
+  padding: 1rem;
+}
+
+.animated-code-line {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.85rem;
+  min-height: 1.85rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.45rem;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+[data-run="true"] .animated-code-line,
+[data-run="true"] .compare-rail-card,
+[data-run="true"] .animated-callout {
+  animation: rise-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: var(--line-delay, 0ms);
+}
+
+.animated-code-number {
+  color: rgba(158, 168, 189, 0.55);
+  text-align: right;
+  user-select: none;
+}
+
+.animated-code-line code {
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.tone-muted {
+  background: rgba(255, 203, 107, 0.05);
+}
+
+.tone-accent {
+  background: rgba(124, 140, 255, 0.09);
+}
+
+.tone-success {
+  background: rgba(108, 214, 183, 0.08);
+}
+
+.tok-keyword,
+.tok-op {
+  color: #8cb3ff;
+}
+
+.tok-name {
+  color: #f4f7fb;
+}
+
+.tok-string {
+  color: #6cd6b7;
+}
+
+.tok-punc,
+.tok-space {
+  color: #aeb8ca;
+}
+
+.animated-compare-rail {
+  display: grid;
+  gap: 0.85rem;
+  align-content: center;
+  min-width: 10rem;
+}
+
+.compare-rail-card {
+  display: grid;
+  gap: 0.25rem;
+  justify-items: center;
+  padding: 0.9rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.compare-rail-card strong {
+  color: var(--accent-2);
+}
+
+.animated-compare-callouts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0 1rem 1rem;
+}
+
+.animated-callout {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.025);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.animated-callout strong {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .platform-item strong {
   display: block;
   color: var(--text);
@@ -619,6 +834,19 @@ pre {
   .compare-grid,
   .cta-panel,
   .build-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .animated-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .animated-compare-rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-width: 0;
+  }
+
+  .animated-compare-callouts {
     grid-template-columns: 1fr;
   }
 

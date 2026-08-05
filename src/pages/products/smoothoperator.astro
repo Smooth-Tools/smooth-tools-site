@@ -1,19 +1,40 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CodeExample from '../../components/CodeExample.astro';
+import AnimatedCodeCompare from '../../components/AnimatedCodeCompare.astro';
 import { smoothOperatorAssetStoreUrl, smoothOperatorVideoUrl } from '../../data/site';
 import { withBase } from '../../lib/site';
 
-const beforeCode = `if (rigidbody != null)
-{
-    rigidbody.AddForce(force);
-}
+const beforeLines = [
+  { html: `<span class="tok-keyword">if</span> <span class="tok-punc">(</span><span class="tok-name">rigidbody</span> <span class="tok-op">!=</span> <span class="tok-keyword">null</span><span class="tok-punc">)</span>`, tone: 'muted' },
+  { html: `<span class="tok-punc">{</span>`, tone: 'muted' },
+  { html: `<span class="tok-name">rigidbody</span><span class="tok-punc">.</span><span class="tok-name">AddForce</span><span class="tok-punc">(</span><span class="tok-name">force</span><span class="tok-punc">);</span>`, tone: 'normal' },
+  { html: `<span class="tok-punc">}</span>`, tone: 'muted' },
+  { html: `` },
+  { html: `<span class="tok-keyword">var</span> <span class="tok-name">targetName</span> <span class="tok-op">=</span> <span class="tok-name">target</span> <span class="tok-op">!=</span> <span class="tok-keyword">null</span>`, tone: 'muted' },
+  { html: `<span class="tok-space"></span><span class="tok-op">?</span> <span class="tok-name">target</span><span class="tok-punc">.</span><span class="tok-name">name</span> <span class="tok-op">:</span> <span class="tok-string">"None"</span><span class="tok-punc">;</span>`, tone: 'muted' },
+];
 
-var targetName = target != null ? target.name : "None";`;
+const afterLines = [
+  { html: `<span class="tok-name">rigidbody</span><span class="tok-op">?.</span><span class="tok-name">AddForce</span><span class="tok-punc">(</span><span class="tok-name">force</span><span class="tok-punc">);</span>`, tone: 'success' },
+  { html: `` },
+  { html: `<span class="tok-keyword">var</span> <span class="tok-name">targetName</span> <span class="tok-op">=</span> <span class="tok-name">target</span><span class="tok-op">?.</span><span class="tok-name">name</span>`, tone: 'accent' },
+  { html: `<span class="tok-space"></span><span class="tok-op">??</span> <span class="tok-string">"None"</span><span class="tok-punc">;</span>`, tone: 'success' },
+];
 
-const afterCode = `rigidbody?.AddForce(force);
-
-var targetName = target?.name ?? "None";`;
+const compareCallouts = [
+  {
+    label: 'Fewer branches',
+    body: 'The safety checks stay in the code path without forcing the surrounding method to sprawl.',
+  },
+  {
+    label: 'Same intent',
+    body: 'Nothing about the gameplay logic changes. The syntax just becomes easier to scan and maintain.',
+  },
+  {
+    label: 'Unity-aware behavior',
+    body: 'Smooth Operator keeps the result aligned with Unity object semantics instead of plain CLR null checks.',
+  },
+];
 ---
 
 <BaseLayout
@@ -82,30 +103,18 @@ var targetName = target?.name ?? "None";`;
       <div class="section-copy">
         <p class="eyebrow">Before / After</p>
         <h2>Cleaner syntax, same intent.</h2>
+        <p>
+          The old version works, but it spreads the null handling across more branches and more visual noise.
+          Smooth Operator compresses the same intent into code that is easier to read in motion.
+        </p>
       </div>
-      <div class="compare-grid">
-        <CodeExample title="Typical defensive Unity code" code={beforeCode} />
-        <CodeExample title="Modern syntax with Smooth Operator" code={afterCode} />
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell compare-grid">
-      <figure class="image-frame">
-        <img
-          src={withBase('images/smooth-operator-before.png')}
-          alt='Smooth Operator screenshot showing standard Unity code with many "if" statements to check for null'
-        />
-        <figcaption class="caption">Existing product screenshot: standard Unity null-check-heavy code.</figcaption>
-      </figure>
-      <figure class="image-frame">
-        <img
-          src={withBase('images/smooth-operator-after.png')}
-          alt="Smooth Operator screenshot showing optimized code using the null conditional operator"
-        />
-        <figcaption class="caption">Existing product screenshot: simplified code using null operators.</figcaption>
-      </figure>
+      <AnimatedCodeCompare
+        beforeTitle="Typical defensive Unity code"
+        afterTitle="Modern syntax with Smooth Operator"
+        beforeLines={beforeLines}
+        afterLines={afterLines}
+        callouts={compareCallouts}
+      />
     </div>
   </section>
 

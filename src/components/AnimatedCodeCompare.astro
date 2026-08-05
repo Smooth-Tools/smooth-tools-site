@@ -1,0 +1,120 @@
+---
+interface Line {
+  html: string;
+  tone?: 'normal' | 'muted' | 'accent' | 'success';
+}
+
+interface Callout {
+  label: string;
+  body: string;
+}
+
+interface Props {
+  beforeLines: Line[];
+  afterLines: Line[];
+  beforeTitle: string;
+  afterTitle: string;
+  callouts?: Callout[];
+}
+
+const { beforeLines, afterLines, beforeTitle, afterTitle, callouts = [] } = Astro.props;
+---
+
+<section class="animated-compare" data-animated-compare data-run="true">
+  <div class="animated-compare-toolbar">
+    <div class="animated-compare-legend">
+      <span class="compare-chip compare-chip-before">Before</span>
+      <span class="compare-chip compare-chip-after">After</span>
+      <span class="compare-chip">Unity null checks -> null operators</span>
+    </div>
+    <button class="compare-replay" type="button" data-compare-replay>Replay animation</button>
+  </div>
+
+  <div class="animated-compare-grid">
+    <article class="animated-code-window animated-code-window-before">
+      <div class="animated-code-header">
+        <strong>{beforeTitle}</strong>
+        <small>Verbose, defensive flow</small>
+      </div>
+      <div class="animated-code-body">
+        {beforeLines.map((line, index) => (
+          <div
+            class:list={[
+              'animated-code-line',
+              line.tone ? `tone-${line.tone}` : 'tone-normal',
+            ]}
+            style={`--line-delay:${index * 120}ms`}
+          >
+            <span class="animated-code-number">{index + 1}</span>
+            <code set:html={line.html}></code>
+          </div>
+        ))}
+      </div>
+    </article>
+
+    <div class="animated-compare-rail" aria-hidden="true">
+      <div class="compare-rail-card" style="--line-delay:260ms">
+        <span>if (...) </span>
+        <strong>-></strong>
+        <span>`?.`</span>
+      </div>
+      <div class="compare-rail-card" style="--line-delay:520ms">
+        <span>ternary</span>
+        <strong>-></strong>
+        <span>`??`</span>
+      </div>
+      <div class="compare-rail-card" style="--line-delay:780ms">
+        <span>more branches</span>
+        <strong>-></strong>
+        <span>less noise</span>
+      </div>
+    </div>
+
+    <article class="animated-code-window animated-code-window-after">
+      <div class="animated-code-header">
+        <strong>{afterTitle}</strong>
+        <small>Same behavior, cleaner syntax</small>
+      </div>
+      <div class="animated-code-body">
+        {afterLines.map((line, index) => (
+          <div
+            class:list={[
+              'animated-code-line',
+              line.tone ? `tone-${line.tone}` : 'tone-normal',
+            ]}
+            style={`--line-delay:${index * 160 + 420}ms`}
+          >
+            <span class="animated-code-number">{index + 1}</span>
+            <code set:html={line.html}></code>
+          </div>
+        ))}
+      </div>
+    </article>
+  </div>
+
+  {callouts.length > 0 && (
+    <div class="animated-compare-callouts">
+      {callouts.map((callout, index) => (
+        <article class="animated-callout" style={`--line-delay:${index * 140 + 900}ms`}>
+          <strong>{callout.label}</strong>
+          <p>{callout.body}</p>
+        </article>
+      ))}
+    </div>
+  )}
+</section>
+
+<script>
+  const sections = document.querySelectorAll('[data-animated-compare]');
+
+  for (const section of sections) {
+    const replay = section.querySelector('[data-compare-replay]');
+    if (!replay) continue;
+
+    replay.addEventListener('click', () => {
+      section.setAttribute('data-run', 'false');
+      void section.offsetWidth;
+      section.setAttribute('data-run', 'true');
+    });
+  }
+</script>
