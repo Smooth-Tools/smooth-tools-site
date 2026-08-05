@@ -11,7 +11,8 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description, path, ogImage = withBase('images/smooth-tools-icon.png') } = Astro.props;
+const logoAsset = withBase('images/smooth-tools-icon.png');
+const { title, description, path, ogImage = logoAsset } = Astro.props;
 const canonical = toCanonical(path);
 const pageTitle = title === 'Smooth Tools' ? title : `${title} | Smooth Tools`;
 ---
@@ -24,8 +25,8 @@ const pageTitle = title === 'Smooth Tools' ? title : `${title} | Smooth Tools`;
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
-    <link rel="icon" href={withBase('favicon.ico')} />
+    <link rel="icon" type="image/png" href={logoAsset} />
+    <link rel="apple-touch-icon" href={logoAsset} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Smooth Tools" />
